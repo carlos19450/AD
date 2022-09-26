@@ -1,8 +1,9 @@
-package ej02conrecord;
+package Ej02conRecord.src.ej02conrecord;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -67,10 +68,15 @@ public class Ej02conRecord {
         
         //FALTA
         //Mostrar en consola todos aquellos libros que superen el promedio en cuanto a número de páginas se refiere.
-        /*System.out.println("Ejercicio 6 \n");
+        System.out.println("Ejercicio 6 \n");
+        OptionalDouble avgMedia = libros.stream()
+                .mapToInt(p -> p.numPaginas()).average();
+
         libros.stream()
-                .mapToInt(p -> p.numPaginas()).average();*/
-        
+                .filter(p -> p.numPaginas() > avgMedia.getAsDouble())
+                .forEach(p -> System.out.println(p.titulo()));
+
+
         //Mostrar en consola los autores de todos los libros, sin repetir nombres de autores.
         /*System.out.println("Ejercicio 7 \n");
         System.out.println(libros.stream()
