@@ -1,9 +1,6 @@
 package Ej02conRecord.src.ej02conrecord;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.OptionalDouble;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -66,16 +63,16 @@ public class Ej02conRecord {
                 .map(p -> p.numPaginas())
                 .reduce(0, (a,b) -> a + b));*/
         
-        //FALTA
+        /*
         //Mostrar en consola todos aquellos libros que superen el promedio en cuanto a número de páginas se refiere.
         System.out.println("Ejercicio 6 \n");
-        OptionalDouble avgMedia = libros.stream()
-                .mapToInt(p -> p.numPaginas()).average();
-
+        double media = libros.stream()
+                .mapToInt(LibroRecord::numPaginas).average().getAsDouble();
         libros.stream()
-                .filter(p -> p.numPaginas() > avgMedia.getAsDouble())
-                .forEach(p -> System.out.println(p.titulo()));
-
+                .filter(l -> l.numPaginas() > media)
+                //.filter(l -> l.getNumPaginas() > (libros.stream().mapToInt(l2 -> l2.getNumPaginas()).average().getAsDouble()))
+                .forEach(l -> System.out.println(l.titulo()));
+        */
 
         //Mostrar en consola los autores de todos los libros, sin repetir nombres de autores.
         /*System.out.println("Ejercicio 7 \n");
@@ -83,14 +80,21 @@ public class Ej02conRecord {
             .map(p -> p.autor())    
             .distinct()
             .collect(Collectors.toList()));*/
-        
-        //FALTA
+        /*
         //Mostrar en consola los autores que tengan más de 1 libro listado.
-        /*System.out.println("Ejercicio 8 \n");
+        System.out.println("Ejercicio 8 \n");
+        // Agrupamos en una estructura mapa (clave -> valor) los autores con su frecuencia
         libros.stream()
-            .filter(p -> p.titulo() > 1).count()
-            .map(p -> p.autor());*/
-        
+                .collect(Collectors.groupingBy(LibroRecord::autor, Collectors.counting()))
+                // Convertimos la estructura mapa en un stream
+                .entrySet().stream()
+                // Nos quedamos con los autores cuya frecuencia sea mayor que 1
+                .filter(m -> m.getValue() > 1)
+                // Extraemos los nombres de los autores y los imprimimos
+                .map(Map.Entry::getKey)
+                .forEach(System.out::println);
+        */
+
         // Obtener el libro con mayor número de páginas.
         /*System.out.println("Ejercicio 9 \n");
         libros.stream()

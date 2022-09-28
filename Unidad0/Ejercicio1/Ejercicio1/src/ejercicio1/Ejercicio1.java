@@ -1,7 +1,9 @@
-package ejercicio1;
+package Ejercicio1.src.ejercicio1;
 
-import java.util.ArrayList;
+import java.sql.SQLOutput;
 import java.util.Scanner;
+
+import static java.lang.Math.sqrt;
 
 /**
  *
@@ -26,20 +28,19 @@ public class Ejercicio1 {
         }
          */
 
- /*
+/*
         //Ejercicio 1.2:
         System.out.println("Introduce un numero entero: ");
-        int numEntero = entrada.nextInt();
-        int num = 2;
+        int numero = entrada.nextInt();
 
-        while (numEntero != 1) {
-            while (numEntero % num == 0) {
-                System.out.println(num);
-                numEntero = numEntero / num;
+        for (int i = 2; sqrt(numero) >= i; i++) {
+            while ((numero%i == 0) && (numero != i)) {
+                System.out.print(i + " * ");
+                numero = numero / i;
             }
-             num++;
         }
-         */
+        System.out.println(numero);
+*/
  /*
         //Ejercicio 1.3:
         System.out.println("Dame un numero del 1 al 12");
@@ -186,7 +187,7 @@ public class Ejercicio1 {
             }
         }
          */
- 
+ /*
          //Ejercicio 1.8:
          ListaDeDatos datos = new ListaDeDatos();
         String cadena;
@@ -210,6 +211,8 @@ public class Ejercicio1 {
             System.out.println("Tu lista es:");
             datos.MostrarDatosOrdenados();
         }
+
+  */
     }
 
 }
