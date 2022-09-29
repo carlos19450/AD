@@ -1,19 +1,15 @@
 package Ejercicio1.src.ejercicio1;
 
 import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static java.lang.Math.sqrt;
 
-/**
- *
- * @author carlo
- */
 public class Ejercicio1 {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         // TODO code application logic here
         Scanner entrada = new Scanner(System.in);
@@ -28,66 +24,45 @@ public class Ejercicio1 {
         }
          */
 
-/*
+        /*
         //Ejercicio 1.2:
+        ArrayList<Integer> list = new ArrayList();
+        int numero, numCop;
         System.out.println("Introduce un numero entero: ");
-        int numero = entrada.nextInt();
+        numero = entrada.nextInt();
+        numCop = numero;
 
         for (int i = 2; sqrt(numero) >= i; i++) {
-            while ((numero%i == 0) && (numero != i)) {
-                System.out.print(i + " * ");
+            while ((numero % i == 0) && (numero != i)) {
                 numero = numero / i;
+                list.add(i);
             }
         }
-        System.out.println(numero);
-*/
- /*
+        list.add(numero);
+        System.out.println(numCop + " = " + list.stream().map(String::valueOf).collect(Collectors.joining(" * ")));
+        */
+        /*
         //Ejercicio 1.3:
         System.out.println("Dame un numero del 1 al 12");
         int num = entrada.nextInt();
-
+        String mes = "";
         switch (num) {
-            case 1:
-                System.out.println("Enero");
-                break;
-            case 2:
-                System.out.println("Febrero");
-                break;
-            case 3:
-                System.out.println("Marzo");
-                break;
-            case 4:
-                System.out.println("Abril");
-                break;
-            case 5:
-                System.out.println("Mayo");
-                break;
-            case 6:
-                System.out.println("Junio");
-                break;
-            case 7:
-                System.out.println("Julio");
-                break;
-            case 8:
-                System.out.println("Agosto");
-                break;
-            case 9:
-                System.out.println("Septiembre");
-                break;
-            case 10:
-                System.out.println("Octubre");
-                break;
-            case 11:
-                System.out.println("Noviembre");
-                break;
-            case 12:
-                System.out.println("Diciembre");
-                break;
-            default:
-                System.out.println("Error. Dame un número del 1 al 12");
-                break;
+            case 1 -> mes = "Enero";
+            case 2 -> mes = "Febrero";
+            case 3 -> mes = "Marzo";
+            case 4 -> mes = "Abril";
+            case 5 -> mes = "Mayo";
+            case 6 -> mes = "Junio";
+            case 7 -> mes = "Julio";
+            case 8 -> mes = "Agosto";
+            case 9 -> mes = "Septiembre";
+            case 10 -> mes = "Octubre";
+            case 11 -> mes = "Noviembre";
+            case 12 -> mes = "Diciembre";
+            default -> mes = "Error. Dame un número del 1 al 12";
         }
-         */
+        System.out.println("El mes es: "+ mes);
+*/
  /*
         //Ejercicio 1.4:
         String[] mes = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
@@ -95,17 +70,17 @@ public class Ejercicio1 {
         int num = entrada.nextInt();
         System.out.println(mes[num]);
          */
- /*
+/*
         //Ejercicio 1.5:
         int num, rev, inverso = 0, cifra;
         boolean esPrimo = true, esPalindromo = true;
         System.out.println("Dame un numero entero");
         num = entrada.nextInt();
-        if (num == 0 || num == 1 || num == 4) {
+        if (num <= 1 || num % 2 == 0) {
             esPrimo = false;
         }
 
-        for (int x = 2; x < num / 2; x++) {
+        for (int x = 3; x * x < num / 2; x += 2) {
             if (num % x == 0) {
                 esPrimo = false;
             }
@@ -127,7 +102,7 @@ public class Ejercicio1 {
         }else{
             System.out.println("No es palindromo primo");
         }
-         */
+*/
  /*
         //Ejercicio 1.6:
         ArrayList<String> listaNumeros = new ArrayList<String>();
