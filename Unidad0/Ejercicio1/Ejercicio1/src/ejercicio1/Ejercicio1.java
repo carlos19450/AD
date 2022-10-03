@@ -62,15 +62,15 @@ public class Ejercicio1 {
             default -> mes = "Error. Dame un número del 1 al 12";
         }
         System.out.println("El mes es: "+ mes);
-*/
- /*
+        */
+        /*
         //Ejercicio 1.4:
-        String[] mes = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+        String[] mes = {"","Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
         System.out.println("Dame un numero del 1 al 12");
         int num = entrada.nextInt();
         System.out.println(mes[num]);
-         */
-/*
+        */
+        /*
         //Ejercicio 1.5:
         int num, rev, inverso = 0, cifra;
         boolean esPrimo = true, esPalindromo = true;
@@ -102,57 +102,47 @@ public class Ejercicio1 {
         }else{
             System.out.println("No es palindromo primo");
         }
-*/
- /*
+        */
+        /*
         //Ejercicio 1.6:
         ArrayList<String> listaNumeros = new ArrayList<String>();
         String cadena;
         int n = 0, num;
         boolean correcto;
         do {
-            correcto = true;
             System.out.println("Introduce numeros enteros positivos, para terminar introduce uno negativo.");
-            num = entrada.nextInt();
-            if (num < 1) {
-                correcto = false;
-            } else {
+                num = entrada.nextInt();
                 cadena = String.valueOf(num);
-                listaNumeros.add(n, cadena);
-                n++;
-            }
-        } while (correcto);
-        if (correcto) {
+                    if (num >= 1) {
+                        listaNumeros.add(cadena);
+                    }
+        } while (num >= 1);
 
-        }
-        if (listaNumeros.size() == 0) {
-            System.out.println("La lista no contienen nada");
-        } else {
-            System.out.println("Tu lista es:");
-            for (int i = 0; i < listaNumeros.size(); i++) {
-                System.out.println(listaNumeros.get(i));
+        do {
+            System.out.println("Introduce un numero para saber si esta en la lista, para salir introduce un numero negativo");
+                num = entrada.nextInt();
+                cadena = String.valueOf(num);
+            if (num >= 1) {
+                if (listaNumeros.contains(cadena)) {
+                    System.out.println("El numero "+ cadena +" si esta en la lista.");
+                } else {
+                    System.out.println("El numero "+ cadena +" no esta en la lista.");
+                }
             }
-        }
-         */
- /*
+        } while (num >= 1);
+        */
+        /*
         //Ejercicio 1.7:
         ArrayList<String> listaCadena = new ArrayList<String>();
         String cadena;
         int n = 0;
-        boolean correcto;
         do {
-            correcto = true;
             System.out.println("Introduce cadenas, para terminar introduce 'fin'.");
             cadena = entrada.next();
-            if (cadena.equalsIgnoreCase("fin")) {
-                correcto = false;
-            } else {
-                listaCadena.add(n, cadena);
-                n++;
+            if (!cadena.equalsIgnoreCase("Fin")) {
+                listaCadena.add(cadena);
             }
-        } while (correcto);
-        if (correcto) {
-            
-        }
+        } while (!cadena.equalsIgnoreCase("Fin"));
         if (listaCadena.size() == 0) {
             System.out.println("La lista no contienen nada");
         } else {
@@ -161,33 +151,22 @@ public class Ejercicio1 {
                 System.out.println(listaCadena.get(i));
             }
         }
-         */
- /*
+        */
+        /*
          //Ejercicio 1.8:
          ListaDeDatos datos = new ListaDeDatos();
         String cadena;
         boolean correcto;
         do {
-            correcto = true;
             System.out.println("Introduce cadenas, para terminar introduce 'fin'.");
-            cadena = entrada.next();
-            if (cadena.equalsIgnoreCase("fin")) {
-                correcto = false;
-            } else {
+            cadena = entrada.nextLine();
+            if (!cadena.equalsIgnoreCase("Fin")) {
                 datos.incluir(cadena);
             }
-        } while (correcto);
-        if (correcto) {
-            
-        }
-        if (datos.contiene() == false) {
-            System.out.println("La lista no contienen nada");
-        } else {
+        } while (!cadena.equalsIgnoreCase("Fin"));
             System.out.println("Tu lista es:");
             datos.MostrarDatosOrdenados();
         }
-
-  */
+        */
     }
-
 }

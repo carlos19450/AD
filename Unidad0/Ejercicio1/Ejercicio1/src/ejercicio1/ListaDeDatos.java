@@ -2,14 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ejercicio1;
+package Ejercicio1.src.ejercicio1;
 
 import java.util.ArrayList;
-
-/**
- *
- * @author carlo
- */
 public class ListaDeDatos {
 
     ArrayList<String> listaCadena = new ArrayList<String>();
@@ -17,18 +12,12 @@ public class ListaDeDatos {
     public ListaDeDatos() {
     }
 
-    public void incluir(String texto) {
-        int n = 0;
-        listaCadena.add(n, texto);
-        n++;
+    public void incluir(String cadena) {
+        listaCadena.add(cadena);
     }
 
-    public boolean contiene() {
-        boolean correcto = true;
-        if (listaCadena.size() == 0) {
-            correcto = false;
-        }
-        return correcto;
+    public boolean contiene(String cadena) {
+        return listaCadena.contains(cadena);
     }
 
     public void MostrarDatosOrdenados() {
