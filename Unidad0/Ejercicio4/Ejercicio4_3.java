@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Stream;
@@ -11,11 +12,14 @@ public class Ejercicio4_3 {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         Path frasesFichero = Path.of("/home/carpui/Escritorio/anotaciones.txt");
+        BasicFileAttributes attr = Files.readAttributes(frasesFichero, BasicFileAttributes.class);
         ArrayList<String> listaCadenas = new ArrayList<>();
         String frase;
 
         do {
             System.out.println("Introduce frases.");
+            //Falta por aqui
+            attr.creationTime();
             frase = sc.nextLine();
             if (frase != "") {
                 listaCadenas.add(frase);
