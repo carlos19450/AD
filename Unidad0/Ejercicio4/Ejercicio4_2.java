@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
+import static java.nio.file.StandardOpenOption.CREATE;
+
 public class Ejercicio4_2 {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
-        Path frasesFichero = Path.of("/home/carpui/Escritorio/anotaciones.txt");
+        Path frasesFichero = Path.of("C:\\Users\\carlo\\Desktop\\Eaj\\anotaciones.txt");
         ArrayList<String> listaCadenas = new ArrayList<>();
         String frase;
 
@@ -22,7 +24,7 @@ public class Ejercicio4_2 {
             }
         } while (frase != "");
 
-        try (BufferedWriter bw = Files.newBufferedWriter(frasesFichero, StandardOpenOption.APPEND)){
+        try (BufferedWriter bw = Files.newBufferedWriter(frasesFichero, StandardOpenOption.APPEND, CREATE)){
             for (String cadena : listaCadenas) {
                 bw.write(cadena);
                 bw.newLine();

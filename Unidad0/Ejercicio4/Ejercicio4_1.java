@@ -10,7 +10,7 @@ public class Ejercicio4_1 {
 
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
-        Path frasesFichero = Path.of("/home/carpui/Escritorio/frases.txt");
+        Path frasesFichero = Path.of("C:\\Users\\carlo\\Desktop\\Eaj\\frases.txt");
         Files.deleteIfExists(frasesFichero);
         ArrayList<String> listaCadenas = new ArrayList<>();
         String frase;
