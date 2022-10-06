@@ -19,7 +19,7 @@ public class Ejercicio4_1 {
             System.out.println("Introduce frases.");
             frase = sc.nextLine();
             listaCadenas.add(frase);
-        } while (frase != "");
+        } while (!frase.isEmpty());
 
         try (BufferedWriter bw = Files.newBufferedWriter(frasesFichero)){
             for (String cadena : listaCadenas) {
