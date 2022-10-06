@@ -18,7 +18,7 @@ public class Ejercicio4_3 {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         Path frasesFichero = Path.of("C:\\Users\\carlo\\Desktop\\Eaj\\anotaciones.txt");
-        DateTimeFormatter fecha = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss");;
+        DateTimeFormatter fecha = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss");
         ArrayList<String> listaCadenas = new ArrayList<>();
         String frase, fechaPresente;
 
