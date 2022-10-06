@@ -1,3 +1,12 @@
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+
+import static java.lang.Integer.parseInt;
+import static java.nio.file.StandardOpenOption.CREATE;
+
 public class Product implements Comparable<Product> {
     private int id;
     private String name;
@@ -84,5 +93,30 @@ public class Product implements Comparable<Product> {
             return 1;
         else
             return 0;
+    }
+
+    public boolean writeFile(String ruta) {
+        Path rutaFichero = Path.of(ruta);
+        boolean correcto = true;
+        String producto = getId()+",";
+
+        producto += getName()+",";
+        producto += getSupplier()+",";
+        producto += getCategory()+",";
+        producto += ",";
+        producto += getUnitPrice()+",";
+        producto += getUnitsInStock()+",";
+        producto += ",";
+        producto += ",";
+        producto += ",";
+
+        try (BufferedWriter bw = Files.newBufferedWriter(rutaFichero, StandardOpenOption.APPEND, CREATE)){
+                bw.write(producto);
+                bw.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return correcto;
     }
 }
