@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Ejercicio5_2 {
     public static void main(String[] args) {
-        Path personaFichero = Path.of("/home/carpui/Escritorio/personas.dat");
+        Path personaFichero = Path.of("C:\\Users\\andra\\Desktop\\personas.dat");
         DateTimeFormatter foramto = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         //PERSON1
         LocalDate año1 = LocalDate.parse("15/08/1994", foramto);
