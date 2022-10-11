@@ -8,9 +8,8 @@ import java.util.Scanner;
 
 public class Ejercicio5_3 {
     public static void main(String[] args) {
-        Path personaFichero = Path.of("/home/carpui/Escritorio/personas.dat");
+        Path personaFichero = Path.of("C:\\Users\\carlo\\Desktop\\personas.dat");
         Persona person = new Persona();
-        Persona aux;
         List<Persona> listaPersonas = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         String opc, opc2;
@@ -21,9 +20,9 @@ public class Ejercicio5_3 {
                  ObjectInputStream ois = new ObjectInputStream(fis)) {
                 while (fis.available() > 0) {
                     try {
-                        Persona aux2 = (Persona) ois.readObject();
-                        listaPersonas.add(aux2);
-                        System.out.println(aux2.getNombre());
+                        Persona aux = (Persona) ois.readObject();
+                        listaPersonas.add(aux);
+                        System.out.println(aux.getNombre());
                     } catch (StreamCorruptedException e) {
                         System.out.println("Stream corrupted");
                         break;
@@ -33,6 +32,9 @@ public class Ejercicio5_3 {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+            finally {
+
             }
         }
         for (Persona p: listaPersonas) {
