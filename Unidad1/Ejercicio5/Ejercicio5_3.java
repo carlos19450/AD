@@ -33,9 +33,6 @@ public class Ejercicio5_3 {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            finally {
-
-            }
         }
         for (Persona p: listaPersonas) {
             System.out.println(p);
