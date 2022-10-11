@@ -1,16 +1,12 @@
 import java.io.*;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import static java.nio.file.StandardOpenOption.CREATE;
-
 public class Ejercicio5_1 {
     public static void main(String[] args) {
-        Path personaFichero = Path.of("C:\\Users\\andra\\Desktop\\personas.dat");
+        Path personaFichero = Path.of("C:\\Users\\carlo\\Desktop\\personas.dat");
         DateTimeFormatter foramto = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         //PERSON1
         LocalDate año1 = LocalDate.parse("15/08/1994", foramto);

@@ -1,9 +1,7 @@
 import java.io.*;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -17,10 +15,10 @@ public class Persona implements Serializable {
     public Persona() {
     }
 
-    public Persona(String nombre, String mail, LocalDate añoNacimiento) {
+    public Persona(String nombre, String mail, LocalDate annoNacimiento) {
         this.nombre = nombre;
         this.mail = mail;
-        this.annoNacimiento = añoNacimiento;
+        this.annoNacimiento = annoNacimiento;
     }
 
     public String getNombre() {
@@ -31,28 +29,19 @@ public class Persona implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getMail() {
-        return mail;
-    }
-
     public void setMail(String mail) {
         this.mail = mail;
     }
 
-    public LocalDate getAñoNacimiento() {
-        return annoNacimiento;
-    }
-
-    public void setAñoNacimiento(LocalDate añoNacimiento) {
-        this.annoNacimiento = añoNacimiento;
+    public void setAnnoNacimiento(LocalDate annoNacimiento) {
+        this.annoNacimiento = annoNacimiento;
     }
 
     public void introducir(String nombre, Path personaFichero, List<Persona> listaPersonas) {
         try (FileOutputStream fos = new FileOutputStream(personaFichero.toFile(), true);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            Iterator<Persona> iterator = listaPersonas.iterator();
-            while (iterator.hasNext()) {
-                Persona person = iterator.next();
+            for (Persona listaPersona : listaPersonas) {
+                person = listaPersona;
                 if (person.getNombre().equals(nombre)) {
                     oos.writeObject(person);
                 }
@@ -72,7 +61,7 @@ public class Persona implements Serializable {
             nombre = sc.nextLine();
 
             while (iterator.hasNext()) {
-                Persona person = iterator.next();
+                person = iterator.next();
                 if (person.getNombre().equals(nombre)) {
                     System.out.println(person);
                 }
@@ -94,7 +83,7 @@ public class Persona implements Serializable {
         System.out.print("Introducir: ");
         mail = sc.nextLine();
         //FECHA DE NACIMIENTO
-        System.out.println("Introduce la fecha de nacimiento: ");
+        System.out.println("Introduce la fecha de nacimiento con formato 'dd/MM/yyyy': ");
         System.out.print("Introducir: ");
         fechaNacimiento = sc.nextLine();
         LocalDate anno = LocalDate.parse(fechaNacimiento, foramto);
@@ -103,7 +92,7 @@ public class Persona implements Serializable {
         person = new Persona();
         person.setNombre(nombre);
         person.setMail(mail);
-        person.setAñoNacimiento(anno);
+        person.setAnnoNacimiento(anno);
         listaPersonas.add(person);
 
         introducir(nombre, personaFichero, listaPersonas);
