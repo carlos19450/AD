@@ -37,15 +37,10 @@ public class Persona implements Serializable {
         this.annoNacimiento = annoNacimiento;
     }
 
-    public void introducir(String nombre, Path personaFichero, List<Persona> listaPersonas) {
+    public void introducirEnFichero(Path personaFichero, Persona ultimo) {
         try (FileOutputStream fos = new FileOutputStream(personaFichero.toFile(), true);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            for (Persona listaPersona : listaPersonas) {
-                person = listaPersona;
-                if (person.getNombre().equals(nombre)) {
-                    oos.writeObject(person);
-                }
-            }
+                     oos.writeObject(ultimo);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -89,13 +84,10 @@ public class Persona implements Serializable {
         LocalDate anno = LocalDate.parse(fechaNacimiento, foramto);
 
         //LA PERSONA
-        person = new Persona();
-        person.setNombre(nombre);
-        person.setMail(mail);
-        person.setAnnoNacimiento(anno);
-        listaPersonas.add(person);
+        Persona aux = new Persona(nombre,mail,anno);
+        listaPersonas.add(aux);
 
-        introducir(nombre, personaFichero, listaPersonas);
+        introducirEnFichero(personaFichero, aux);
     }
 
     public void escribir() {

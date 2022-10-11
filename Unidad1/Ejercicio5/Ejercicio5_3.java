@@ -8,20 +8,26 @@ import java.util.Scanner;
 
 public class Ejercicio5_3 {
     public static void main(String[] args) {
-        Path personaFichero = Path.of("C:\\Users\\carlo\\Desktop\\personas.dat");
+        Path personaFichero = Path.of("/home/carpui/Escritorio/personas.dat");
         Persona person = new Persona();
+        Persona aux;
         List<Persona> listaPersonas = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         String opc, opc2;
 
         if (Files.exists(personaFichero)) {
+            System.out.println("El fichero existe");
             try (FileInputStream fis = new FileInputStream(personaFichero.toFile());
                  ObjectInputStream ois = new ObjectInputStream(fis)) {
                 while (fis.available() > 0) {
                     try {
-                        Persona emp = (Persona) ois.readObject();
-                        listaPersonas.add(emp);
+                        Persona aux2 = (Persona) ois.readObject();
+                        listaPersonas.add(aux2);
+                        System.out.println(aux2.getNombre());
                     } catch (StreamCorruptedException e) {
+                        System.out.println("Stream corrupted");
+                        break;
+                    } catch (EOFException e) {
                         break;
                     }
                 }
@@ -29,7 +35,10 @@ public class Ejercicio5_3 {
                 e.printStackTrace();
             }
         }
-
+        for (Persona p: listaPersonas) {
+            System.out.println(p);
+        }
+        //se supone que listaPersonas tiene un montón de personas
         do {
             //MENÚ
             System.out.println("1.Introducir personas en la agenda.\n" +
