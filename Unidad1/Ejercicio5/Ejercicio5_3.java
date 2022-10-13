@@ -1,6 +1,8 @@
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -8,36 +10,20 @@ import java.util.Scanner;
 
 public class Ejercicio5_3 {
     public static void main(String[] args) {
-        Path personaFichero = Path.of("C:\\Users\\carlo\\Desktop\\personas.dat");
-        Persona person = new Persona();
+        Persona person;
+        Path personaFichero = Path.of("/home/carpui/Escritorio/personas.dat");
+        DateTimeFormatter fecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         List<Persona> listaPersonas = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
-        String opc, opc2;
+        String opc, nombre, mail, fechaNacimiento;
 
         if (Files.exists(personaFichero)) {
-            System.out.println("El fichero existe");
-            try (FileInputStream fis = new FileInputStream(personaFichero.toFile());
-                 ObjectInputStream ois = new ObjectInputStream(fis)) {
-                while (fis.available() > 0) {
-                    try {
-                        Persona aux = (Persona) ois.readObject();
-                        listaPersonas.add(aux);
-                        System.out.println(aux.getNombre());
-                    } catch (StreamCorruptedException e) {
-                        System.out.println("Stream corrupted");
-                        break;
-                    } catch (EOFException e) {
-                        break;
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            listaPersonas = cargarListaPersona(personaFichero);
         }
-        for (Persona p: listaPersonas) {
-            System.out.println(p);
+        for (Persona p : listaPersonas) {
+            System.out.println(p);;
         }
-        //se supone que listaPersonas tiene un montón de personas
+
         do {
             //MENÚ
             System.out.println("1.Introducir personas en la agenda.\n" +
@@ -46,27 +32,69 @@ public class Ejercicio5_3 {
             System.out.print("Introducir: ");
             opc = sc.nextLine();
             switch (opc) {
-                case "0" -> System.out.println("Adios");
+                case "0" ->  {
+                    introducirEnFichero(personaFichero, listaPersonas);
+                    System.out.println("Adios");
+                }
                 case "1" -> {
-                    do {
-                        person.crearPersona(listaPersonas, personaFichero);
-                        System.out.println("¿Quieres introducir otro contacto? S/N");
-                        System.out.print("Introducir: ");
-                        opc2 = sc.nextLine();
-                    }while (!opc2.equalsIgnoreCase("N"));
+                    //NOMBRE
+                    System.out.print("Introduce el nombre: ");
+                    nombre = sc.nextLine();
+                    //MAIL
+                    System.out.print("Introduce el mail: ");
+                    mail = sc.nextLine();
+                    //FECHA DE NACIMIENTO
+                    System.out.print("Introduce la fecha de nacimiento con formato 'dd/MM/yyyy': ");
+                    fechaNacimiento = sc.nextLine();
+                    LocalDate anno = LocalDate.parse(fechaNacimiento, fecha);
+                    person = crearPersona(nombre, mail, anno);
+                    listaPersonas.add(person);
                     System.out.println();
                 }
                 case "2" -> {
-                    do {
-                        person.buscaPersona(listaPersonas);
-                        System.out.println("¿Quieres buscar a otro contacto? S/N");
-                        System.out.print("Introducir: ");
-                        opc2 = sc.nextLine();
-                    }while (!opc2.equalsIgnoreCase("N"));
-                    System.out.println();
+                    if (listaPersonas.contains(null)) {
+                        System.out.println("No hay ninguna persona en la agenda.");
+                    } else {
+                        System.out.print("Para buscar a una persona introduce su nombre: ");
+                        nombre = sc.nextLine();
+                        buscaPersona(listaPersonas, nombre);
+                        System.out.println();
+                    }
                 }
                 default -> System.out.println("Error. Introduce 1 o 2 \n");
             }
-        } while(!opc.equals("0"));
+        } while (!opc.equals("0"));
+    }
+
+    public static List<Persona> cargarListaPersona(Path personaFichero) {
+        List<Persona> listaPersonasCargadas = new ArrayList<>();
+        try (FileInputStream fis = new FileInputStream(personaFichero.toFile());
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+            listaPersonasCargadas = (List) ois.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listaPersonasCargadas;
+    }
+    public static void introducirEnFichero(Path personaFichero ,List<Persona> listaPersonas) {
+        try (FileOutputStream fos = new FileOutputStream(personaFichero.toFile(), true);
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(listaPersonas);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void buscaPersona(List<Persona> listaPersonas, String nombre) {
+        for (Persona person: listaPersonas) {
+            if (person.getNombre().equals(nombre)) {
+                System.out.println(person);
+            }
+        }
+    }
+
+    public static Persona crearPersona(String nombre, String mail, LocalDate anno) {
+        Persona personaCreada = new Persona(nombre,mail,anno);
+        return personaCreada;
     }
 }
