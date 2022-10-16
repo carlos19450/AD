@@ -1,9 +1,5 @@
 import java.io.*;
-import java.nio.file.Path;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Scanner;
 
 public class Persona implements Serializable {
     private static final long serialVersionUID = 100L;
