@@ -1,8 +1,12 @@
 import java.io.BufferedWriter;
+import java.io.EOFException;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Integer.parseInt;
 import static java.nio.file.StandardOpenOption.CREATE;
@@ -98,25 +102,89 @@ public class Product implements Comparable<Product> {
     public boolean writeFile(String ruta) {
         Path rutaFichero = Path.of(ruta);
         boolean correcto = true;
-        String producto = getId()+",";
+        Product product = buscarProducto(ruta);
+        String producto;
+        long puntero;
+        if (product == null) {
+            producto = getId()+",";
+            producto += getName()+",";
+            producto += getSupplier()+",";
+            producto += getCategory()+",";
+            producto += ",";
+            producto += getUnitPrice()+",";
+            producto += getUnitsInStock()+",";
+            producto += ",";
+            producto += ",";
+            producto += ",";
 
-        producto += getName()+",";
-        producto += getSupplier()+",";
-        producto += getCategory()+",";
-        producto += ",";
-        producto += getUnitPrice()+",";
-        producto += getUnitsInStock()+",";
-        producto += ",";
-        producto += ",";
-        producto += ",";
+            try (RandomAccessFile raf = new RandomAccessFile(ruta, "rw")) {
+                raf.seek(raf.length());
+                raf.writeBytes("\n");
+                raf.write(producto.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            producto = getId()+",";
+            producto += getName()+",";
+            producto += getSupplier()+",";
+            producto += getCategory()+",";
+            producto += ",";
+            producto += getUnitPrice()+",";
+            producto += getUnitsInStock()+",";
+            producto += ",";
+            producto += ",";
+            producto += ",";
 
-        try (BufferedWriter bw = Files.newBufferedWriter(rutaFichero, StandardOpenOption.APPEND, CREATE)){
-                bw.write(producto);
-                bw.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+            try (RandomAccessFile raf = new RandomAccessFile(ruta, "rw")) {
+                puntero = buscarPosicion(ruta);
+                raf.seek(puntero);
+                raf.write(producto.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return correcto;
+    }
+
+    public Product buscarProducto(String ruta) {
+        String[] line;
+        String linea;
+        try (RandomAccessFile raf = new RandomAccessFile(ruta, "r")) {
+            do {
+                linea = raf.readLine();
+                if (linea != null) {
+                    line = linea.split(",");
+                    if (getName().equals(line[1])) {
+                        return new Product(parseInt(line[0]), line[1], parseInt(line[2]), parseInt(line[3]), Double.parseDouble(line[5]), parseInt(line[6]));
+                    }
+                }
+            }while (linea != null);
+        }catch (Exception ex) {
+            ex.getMessage();
+        }
+        return null;
+    }
+
+    public long buscarPosicion(String ruta) {
+        String[] line;
+        String linea;
+        long pos = 0;
+        try (RandomAccessFile raf = new RandomAccessFile(ruta, "r")) {
+            do {
+                pos = raf.getFilePointer();
+                linea =  raf.readLine();
+                if (linea != null) {
+                    line = linea.split(",");
+                    if (getName().equals(line[1])) {
+                        return pos;
+                    }
+                }
+            } while(linea != null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return pos;
     }
 }
