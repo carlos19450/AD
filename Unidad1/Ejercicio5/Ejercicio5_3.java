@@ -21,7 +21,7 @@ public class Ejercicio5_3 {
             listaPersonas = cargarListaPersona(personaFichero);
         }
         for (Persona p : listaPersonas) {
-            System.out.println(p);;
+            System.out.println(p);
         }
 
         do {
