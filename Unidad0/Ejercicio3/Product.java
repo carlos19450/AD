@@ -100,49 +100,39 @@ public class Product implements Comparable<Product> {
     }
 
     public boolean writeFile(String ruta) {
-        Path rutaFichero = Path.of(ruta);
-        boolean correcto = true;
-        Product product = buscarProducto(ruta);
-        String producto;
-        long puntero;
-        if (product == null) {
-            producto = getId()+",";
-            producto += getName()+",";
-            producto += getSupplier()+",";
-            producto += getCategory()+",";
-            producto += ",";
-            producto += getUnitPrice()+",";
-            producto += getUnitsInStock()+",";
-            producto += ",";
-            producto += ",";
-            producto += ",";
+        boolean correcto = false;
+        String producto, nombre, linea;
+        long puntero = 0;
+        producto = getId()+","
+                + getName()+","
+                + getSupplier()+","
+                + getCategory()+"," + ","
+                + getUnitPrice()+","
+                + getUnitsInStock()+"," + "," + "," + ",";
 
-            try (RandomAccessFile raf = new RandomAccessFile(ruta, "rw")) {
+        try (RandomAccessFile raf = new RandomAccessFile(ruta, "rw")) {
+            nombre = getName();
+            linea = raf.readLine();
+            if (linea != null) linea = raf.readLine();
+
+            while (linea != null && !correcto) {
+                String[] partesProducto = linea.split(",");
+                if (partesProducto[1].equals(nombre)) {
+                    raf.seek(puntero);
+                    raf.writeBytes(producto);
+                    correcto = true;
+                }
+                puntero = raf.getFilePointer();
+                linea = raf.readLine();
+            }
+
+            if (!correcto) {
                 raf.seek(raf.length());
+                raf.writeBytes(producto);
                 raf.writeBytes("\n");
-                raf.write(producto.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-        }else {
-            producto = getId()+",";
-            producto += getName()+",";
-            producto += getSupplier()+",";
-            producto += getCategory()+",";
-            producto += ",";
-            producto += getUnitPrice()+",";
-            producto += getUnitsInStock()+",";
-            producto += ",";
-            producto += ",";
-            producto += ",";
-
-            try (RandomAccessFile raf = new RandomAccessFile(ruta, "rw")) {
-                puntero = buscarPosicion(ruta);
-                raf.seek(puntero);
-                raf.write(producto.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return correcto;
     }
