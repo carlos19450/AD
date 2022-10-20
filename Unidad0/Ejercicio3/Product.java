@@ -88,7 +88,6 @@ public class Product implements Comparable<Product> {
                 '}';
     }
 
-
     @Override
     public int compareTo(Product p) {
         if (this.getUnitsInStock() < p.getUnitsInStock())
@@ -101,6 +100,7 @@ public class Product implements Comparable<Product> {
 
     public boolean writeFile(String ruta) {
         boolean correcto = false;
+        String[] partesProducto;
         String producto, nombre, linea;
         long puntero = 0;
         producto = getId()+","
@@ -113,10 +113,11 @@ public class Product implements Comparable<Product> {
         try (RandomAccessFile raf = new RandomAccessFile(ruta, "rw")) {
             nombre = getName();
             linea = raf.readLine();
-            if (linea != null) linea = raf.readLine();
-
+            if (linea != null) {
+                linea = raf.readLine();
+            }
             while (linea != null && !correcto) {
-                String[] partesProducto = linea.split(",");
+                partesProducto = linea.split(",");
                 if (partesProducto[1].equals(nombre)) {
                     raf.seek(puntero);
                     raf.writeBytes(producto);
@@ -125,7 +126,6 @@ public class Product implements Comparable<Product> {
                 puntero = raf.getFilePointer();
                 linea = raf.readLine();
             }
-
             if (!correcto) {
                 raf.seek(raf.length());
                 raf.writeBytes(producto);
@@ -135,46 +135,5 @@ public class Product implements Comparable<Product> {
             e.printStackTrace();
         }
         return correcto;
-    }
-
-    public Product buscarProducto(String ruta) {
-        String[] line;
-        String linea;
-        try (RandomAccessFile raf = new RandomAccessFile(ruta, "r")) {
-            do {
-                linea = raf.readLine();
-                if (linea != null) {
-                    line = linea.split(",");
-                    if (getName().equals(line[1])) {
-                        return new Product(parseInt(line[0]), line[1], parseInt(line[2]), parseInt(line[3]), Double.parseDouble(line[5]), parseInt(line[6]));
-                    }
-                }
-            }while (linea != null);
-        }catch (Exception ex) {
-            ex.getMessage();
-        }
-        return null;
-    }
-
-    public long buscarPosicion(String ruta) {
-        String[] line;
-        String linea;
-        long pos = 0;
-        try (RandomAccessFile raf = new RandomAccessFile(ruta, "r")) {
-            do {
-                pos = raf.getFilePointer();
-                linea =  raf.readLine();
-                if (linea != null) {
-                    line = linea.split(",");
-                    if (getName().equals(line[1])) {
-                        return pos;
-                    }
-                }
-            } while(linea != null);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return pos;
     }
 }
