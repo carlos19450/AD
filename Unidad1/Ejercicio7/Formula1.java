@@ -4,10 +4,10 @@ import java.time.format.DateTimeFormatter;
 public class Formula1 {
     private String track, driver, team;
     private int position, no, startingGrid, laps;
-    private float points;
+    private double points;
     private String extraPoint, timeRetired, fastestLap;
 
-    public Formula1(String track, int position, int no, String driver, String team, int startingGrid, int laps, String timeRetired, float points, String extraPoint, String fastestLap) {
+    public Formula1(String track, int position, int no, String driver, String team, int startingGrid, int laps, String timeRetired, double points, String extraPoint, String fastestLap) {
         this.track = track;
         this.driver = driver;
         this.team = team;
