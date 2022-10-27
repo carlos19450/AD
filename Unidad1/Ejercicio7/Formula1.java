@@ -7,6 +7,9 @@ public class Formula1 {
     private double points;
     private String extraPoint, timeRetired, fastestLap;
 
+    public Formula1 () {
+
+    }
     public Formula1(String track, int position, int no, String driver, String team, int startingGrid, int laps, String timeRetired, double points, String extraPoint, String fastestLap) {
         this.track = track;
         this.driver = driver;
@@ -21,19 +24,63 @@ public class Formula1 {
         this.fastestLap = fastestLap;
     }
 
+    public String getTrack() {
+        return track;
+    }
+
+    public String getDriver() {
+        return driver;
+    }
+
+    public String getTeam() {
+        return team;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public int getNo() {
+        return no;
+    }
+
+    public int getStartingGrid() {
+        return startingGrid;
+    }
+
+    public int getLaps() {
+        return laps;
+    }
+
+    public double getPoints() {
+        return points;
+    }
+
+    public String getExtraPoint() {
+        return extraPoint;
+    }
+
+    public String getTimeRetired() {
+        return timeRetired;
+    }
+
+    public String getFastestLap() {
+        return fastestLap;
+    }
+
     @Override
     public String toString() {
         return "Formula1{" +
-                "  track='" + track + '\'' +
-                ", driver='" + driver + '\'' +
-                ", team='" + team + '\'' +
+                "  track='" + track +
                 ", position=" + position +
                 ", no=" + no +
+                ", driver='" + driver +
+                ", team='" + team +
                 ", startingGrid=" + startingGrid +
                 ", laps=" + laps +
+                ", timeRetired='" + timeRetired +
                 ", points=" + points +
-                ", extraPoint='" + extraPoint + '\'' +
-                ", timeRetired='" + timeRetired + '\'' +
+                ", extraPoint='" + extraPoint +
                 ", fastestLap=" + fastestLap +
                 '}';
     }
