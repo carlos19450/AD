@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.lang.Double.parseDouble;
@@ -44,7 +45,10 @@ public class Ejercicio7 {
                     }
                     case 3 -> {
                         calcularTodasLasVictoriasDeUnJugador(map2, listaCarrera);
-                        map2.entrySet().stream();
+                        int max = Collections.max(map2.values());
+                        map2.entrySet().stream().filter(entry -> entry.getValue() == max).map(entry -> entry.getKey()).collect(Collectors.toList());
+                        System.out.println(max);
+
                     }
                     default -> System.out.println("Introduce un numero valido del menú.");
                 }
@@ -119,13 +123,13 @@ public class Ejercicio7 {
         }
     }
     public static void calcularTodasLasVictoriasDeUnJugador(Map<String, Integer> map2, List<Formula1> listaCarrera) {
-
         for (Formula1 race : listaCarrera){
-            System.out.println(map2.get(race));
-            if (map2.containsKey(race.getDriver()) && race.getPosition() == 1) {
-                map2.put(race.getDriver(), map2.get(race.getDriver() + 1));
-            }else{
-                map2.put(race.getDriver(), race.getPosition());
+            if (race.getPosition() == 1) {
+                if (map2.containsKey(race.getDriver())) {
+                    map2.put(race.getDriver(), map2.get(race.getDriver()) + 1);
+                }else{
+                    map2.put(race.getDriver(), 1);
+                }
             }
         }
     }
