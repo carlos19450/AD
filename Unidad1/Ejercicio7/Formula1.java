@@ -24,6 +24,17 @@ public class Formula1 {
         this.fastestLap = fastestLap;
     }
 
+    public Formula1(String track, int position, int no, String driver, String team, int startingGrid, int laps, String timeRetired, double points) {
+        this.track = track;
+        this.driver = driver;
+        this.team = team;
+        this.position = position;
+        this.no = no;
+        this.startingGrid = startingGrid;
+        this.laps = laps;
+        this.timeRetired = timeRetired;
+        this.points = points;
+    }
     public String getTrack() {
         return track;
     }
