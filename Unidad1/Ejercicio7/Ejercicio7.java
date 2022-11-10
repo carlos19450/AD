@@ -11,7 +11,7 @@ import static java.lang.Integer.parseInt;
 public class Ejercicio7 {
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
-        int opc;
+        int opc, maxJug, maxTeam;
         Map<String, Double> map = new HashMap<>();
         Map<String, Integer> map2 = new HashMap<>();
         List<Formula1> listaCarrera  = new ArrayList<>();
@@ -36,19 +36,37 @@ public class Ejercicio7 {
                 //Opciones del menú
                 switch (opc) {
                     case 1 -> {
-                        calcularTodosLosPuntosDeUnJugador(map, listaCarrera, listaSprints);
+                        map = devuelveYcalculaTodosLosPuntosDeUTodosLosJugadores(listaCarrera, listaSprints);
                         map.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach(System.out::println);
                     }
                     case 2 -> {
-                        calcularTodosLosPuntosDeUnEquipo(map, listaCarrera, listaSprints);
+                        map = devuelveYcalculaTodosLosPuntosDeUTodosLosEquipos(listaCarrera, listaSprints);
                         map.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach(System.out::println);
                     }
                     case 3 -> {
-                        calcularTodasLasVictoriasDeUnJugador(map2, listaCarrera);
-                        int max = Collections.max(map2.values());
-                        map2.entrySet().stream().filter(entry -> entry.getValue() == max).map(entry -> entry.getKey()).collect(Collectors.toList());
-                        System.out.println(max);
-
+                        map2 = devuelveYcalculaTodasLasVictoriasDeTodosLosJugador(listaCarrera);
+                        map2.entrySet().stream().sorted((p1, p2) -> Double.compare(p2.getValue(), p1.getValue())).limit(1).forEach(System.out::println);
+                        System.out.println();
+                        map2 = devuelveYcalculaTodasLasVictoriasDeTodosLosEquipo(listaCarrera);
+                        map2.entrySet().stream().sorted((p1, p2) -> Double.compare(p2.getValue(), p1.getValue())).limit(1).forEach(System.out::println);
+                    }
+                    case 4 -> {
+                        map2 = devuelveYcalculaPodiumDeLosJugadoresCampeones(listaCarrera);
+                        map2.entrySet().stream().sorted((p1, p2) -> Double.compare(p2.getValue(), p1.getValue())).limit(1).forEach(System.out::println);
+                        System.out.println();
+                        map2 = devuelveYcalculaPodiumDeLosEquiposCampeones(listaCarrera);
+                        map2.entrySet().stream().sorted((p1, p2) -> Double.compare(p2.getValue(), p1.getValue())).limit(1).forEach(System.out::println);
+                    }
+                    case 5 -> {
+                        map2 = devuelveYcalculaLosPolesDeLosJugadoresCampeones(listaCarrera);
+                        map2.entrySet().stream().sorted((p1, p2) -> Double.compare(p2.getValue(), p1.getValue())).limit(1).forEach(System.out::println);
+                        System.out.println();
+                        map2 = devuelveYcalculaLosPolesDeLosEquiposCampeones(listaCarrera);
+                        map2.entrySet().stream().sorted((p1, p2) -> Double.compare(p2.getValue(), p1.getValue())).limit(1).forEach(System.out::println);
+                    }
+                    case 7 -> {
+                        map2 = devuelveYcalculaLosAbandonosDeTodosLosJugadores(listaCarrera);
+                        map2.entrySet().stream().sorted((p1, p2) -> Double.compare(p2.getValue(), p1.getValue())).forEach(System.out::println);
                     }
                     default -> System.out.println("Introduce un numero valido del menú.");
                 }
@@ -71,8 +89,11 @@ public class Ejercicio7 {
             } else if (line.get(1).equals("DQ")) {
                 line.set(1, "-2");
             }
-            if (line.get(10).equals("N/S")) {
+            if (line.get(10).equals("N/A")) {
                 line.set(10, "-3");
+            }
+            if (line.get(7).equals("DNF")) {
+                line.set(7, "-4");
             }
             carrera = new Formula1(line.get(0), parseInt(line.get(1)), parseInt(line.get(2)), line.get(3), line.get(4), parseInt(line.get(5)), parseInt(line.get(6)), line.get(7), parseDouble(line.get(8)), line.get(9), line.get(10));
             listaCarrera.add(carrera);
@@ -88,7 +109,8 @@ public class Ejercicio7 {
             listaSprints.add(sprint);
         }
     }
-    public static void calcularTodosLosPuntosDeUnJugador(Map<String, Double> map, List<Formula1> listaCarrera, List<Formula1>listaSprints) {
+    public static Map<String, Double> devuelveYcalculaTodosLosPuntosDeUTodosLosJugadores(List<Formula1> listaCarrera, List<Formula1>listaSprints) {
+        Map<String, Double> map = new HashMap<>();
         for (Formula1 race : listaCarrera){
             if (map.containsKey(race.getDriver())) {
                 map.put(race.getDriver(), map.get(race.getDriver()) + race.getPoints());
@@ -104,8 +126,10 @@ public class Ejercicio7 {
             }
             map.get(sprint.getDriver());
         }
+        return map;
     }
-    public static void calcularTodosLosPuntosDeUnEquipo(Map<String, Double> map, List<Formula1> listaCarrera, List<Formula1>listaSprints) {
+    public static Map<String, Double> devuelveYcalculaTodosLosPuntosDeUTodosLosEquipos(List<Formula1> listaCarrera, List<Formula1>listaSprints) {
+        Map<String, Double> map = new HashMap<>();
         for (Formula1 race : listaCarrera){
             if (map.containsKey(race.getTeam())) {
                 map.put(race.getTeam(), map.get(race.getTeam()) + race.getPoints());
@@ -121,16 +145,97 @@ public class Ejercicio7 {
             }
             map.get(sprint.getTeam());
         }
+        return map;
     }
-    public static void calcularTodasLasVictoriasDeUnJugador(Map<String, Integer> map2, List<Formula1> listaCarrera) {
+    public static Map<String, Integer> devuelveYcalculaTodasLasVictoriasDeTodosLosJugador(List<Formula1> listaCarrera) {
+        Map<String, Integer> map = new HashMap<>();
         for (Formula1 race : listaCarrera){
             if (race.getPosition() == 1) {
-                if (map2.containsKey(race.getDriver())) {
-                    map2.put(race.getDriver(), map2.get(race.getDriver()) + 1);
+                if (map.containsKey(race.getDriver())) {
+                    map.put(race.getDriver(), map.get(race.getDriver()) + 1);
                 }else{
-                    map2.put(race.getDriver(), 1);
+                    map.put(race.getDriver(), 1);
                 }
             }
         }
+        return map;
+    }
+    public static Map<String, Integer> devuelveYcalculaTodasLasVictoriasDeTodosLosEquipo(List<Formula1> listaCarrera) {
+        Map<String, Integer> map = new HashMap<>();
+        for (Formula1 race : listaCarrera){
+            if (race.getPosition() == 1) {
+                if (map.containsKey(race.getTeam())) {
+                    map.put(race.getTeam(), map.get(race.getTeam()) + 1);
+                }else{
+                    map.put(race.getTeam(), 1);
+                }
+            }
+        }
+        return map;
+    }
+    public static Map<String, Integer> devuelveYcalculaPodiumDeLosJugadoresCampeones(List<Formula1> listaCarrera) {
+        Map<String, Integer> map = new HashMap<>();
+        for (Formula1 race : listaCarrera){
+            if (race.getPosition() == 1 || race.getPosition() == 2 || race.getPosition() == 3) {
+                if (map.containsKey(race.getDriver())) {
+                    map.put(race.getDriver(), map.get(race.getDriver()) + 1);
+                }else{
+                    map.put(race.getDriver(), 1);
+                }
+            }
+        }
+        return map;
+    }
+    public static Map<String, Integer> devuelveYcalculaPodiumDeLosEquiposCampeones(List<Formula1> listaCarrera) {
+        Map<String, Integer> map = new HashMap<>();
+        for (Formula1 race : listaCarrera){
+            if (race.getPosition() == 1 || race.getPosition() == 2 || race.getPosition() == 3) {
+                if (map.containsKey(race.getTeam())) {
+                    map.put(race.getTeam(), map.get(race.getTeam()) + 1);
+                }else{
+                    map.put(race.getTeam(), 1);
+                }
+            }
+        }
+        return map;
+    }
+    public static Map<String, Integer> devuelveYcalculaLosPolesDeLosJugadoresCampeones(List<Formula1> listaCarrera) {
+        Map<String, Integer> map = new HashMap<>();
+        for (Formula1 race : listaCarrera){
+            if (race.getStartingGrid() == 1) {
+                if (map.containsKey(race.getDriver())) {
+                    map.put(race.getDriver(), map.get(race.getDriver()) + 1);
+                }else{
+                    map.put(race.getDriver(), 1);
+                }
+            }
+        }
+        return map;
+    }
+    public static Map<String, Integer> devuelveYcalculaLosPolesDeLosEquiposCampeones(List<Formula1> listaCarrera) {
+        Map<String, Integer> map = new HashMap<>();
+        for (Formula1 race : listaCarrera){
+            if (race.getStartingGrid() == 1) {
+                if (map.containsKey(race.getTeam())) {
+                    map.put(race.getTeam(), map.get(race.getTeam()) + 1);
+                }else{
+                    map.put(race.getTeam(), 1);
+                }
+            }
+        }
+        return map;
+    }
+    public static Map<String, Integer> devuelveYcalculaLosAbandonosDeTodosLosJugadores(List<Formula1> listaCarrera) {
+        Map<String, Integer> map = new HashMap<>();
+        for (Formula1 race : listaCarrera){
+            if (race.getPosition() == -1 || race.getTimeRetired().equals("-4")) {
+                if (map.containsKey(race.getDriver())) {
+                    map.put(race.getDriver(), map.get(race.getDriver()) + 1);
+                }else{
+                    map.put(race.getDriver(), 1);
+                }
+            }
+        }
+        return map;
     }
 }
