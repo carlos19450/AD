@@ -18,7 +18,7 @@ public class Ejercicio8 {
             ArrayList<Race> races = cal.getRaces();
 
             for(Race l: races){
-                System.out.println(l.getCountry());
+                System.out.println(l.getRacedate());
             }
         } catch (JAXBException e) {
             e.printStackTrace();

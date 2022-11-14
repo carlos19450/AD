@@ -2,133 +2,133 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-@XmlRootElement(name = "race")
-@XmlType(propOrder = {"round", "country", "city", "circuitname", "gpname", "racedate", "firstgp", "numberoflaps", "circuitlength", "racedistance", "laprecord", "recordowner", "recordyear", "turns", "drszones"})
+//@XmlRootElement(name = "race")
+//@XmlType(propOrder = {"round", "country", "city", "circuitname", "gpname", "racedate", "firstgp", "numberoflaps", "circuitlength", "racedistance", "laprecord", "recordowner", "recordyear", "turns", "drszones"})
 public class Race {
-    private String round, country, city, circuitname, gpname, racedate, laprecord, recordowner;
-    private int firstgp, numberoflaps, recordyear, turns, drszones;
-    private float circuitlength, racedistance;
+    @XmlAttribute(name = "round")
+    private String round;
+    @XmlElement(name = "country")
+    private String country;
+    @XmlElement(name = "city")
+    private String city;
+    @XmlElement(name = "circuitname")
+    private String circuitname;
+    @XmlElement(name = "gpname")
+    private String gpname;
+    @XmlElement(name = "racedate", required = true)
+    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+    private String racedate;
+    @XmlElement(name = "laprecord")
+    private String laprecord;
+    @XmlElement(name = "recordowner")
+    private String recordowner;
+    @XmlElement(name = "firstgp")
+    private int firstgp;
+    @XmlElement(name = "numberoflaps")
+    private int numberoflaps;
+    @XmlElement(name = "recordyear")
+    private int recordyear;
+    @XmlElement(name = "turns")
+    private int turns;
+    @XmlElement(name = "drszones")
+    private int drszones;
+    @XmlElement(name = "circuitlength")
+    private float circuitlength;
+    @XmlElement(name = "racedistance")
+    private float racedistance;
     public Race() {
     }
 
-    @XmlAttribute(name = "round")
+
     public String getRound() {
         return round;
     }
-
     public void setRound(String round) {
         this.round = round;
     }
-    @XmlElement(name = "country")
     public String getCountry() {
         return country;
     }
-
     public void setCountry(String country) {
         this.country = country;
     }
-    @XmlElement(name = "city")
     public String getCity() {
         return city;
     }
-
     public void setCity(String city) {
         this.city = city;
     }
-    @XmlElement(name = "circuitname")
     public String getCircuitname() {
         return circuitname;
     }
-
     public void setCircuitname(String circuitname) {
         this.circuitname = circuitname;
     }
-    @XmlElement(name = "gpname")
     public String getGpname() {
         return gpname;
     }
-
     public void setGpname(String gpname) {
         this.gpname = gpname;
     }
-    @XmlElement(name = "racedate")
     public String getRacedate() {
         return racedate;
     }
-
     public void setRacedate(String racedate) {
         this.racedate = racedate;
     }
-    @XmlElement(name = "laprecord")
     public String getLaprecord() {
         return laprecord;
     }
-
     public void setLaprecord(String laprecord) {
         this.laprecord = laprecord;
     }
-    @XmlElement(name = "recordowner")
     public String getRecordowner() {
         return recordowner;
     }
-
     public void setRecordowner(String recordowner) {
         this.recordowner = recordowner;
     }
-    @XmlElement(name = "firstgp")
     public int getFirstgp() {
         return firstgp;
     }
-
     public void setFirstgp(int firstgp) {
         this.firstgp = firstgp;
     }
-    @XmlElement(name = "numberoflaps")
     public int getNumberoflaps() {
         return numberoflaps;
     }
-
     public void setNumberoflaps(int numberoflaps) {
         this.numberoflaps = numberoflaps;
     }
-    @XmlElement(name = "recordyear")
     public int getRecordyear() {
         return recordyear;
     }
-
     public void setRecordyear(int recordyear) {
         this.recordyear = recordyear;
     }
-    @XmlElement(name = "turns")
     public int getTurns() {
         return turns;
     }
-
     public void setTurns(int turns) {
         this.turns = turns;
     }
-    @XmlElement(name = "drszones")
     public int getDrszones() {
         return drszones;
     }
-
     public void setDrszones(int drszones) {
         this.drszones = drszones;
     }
-    @XmlElement(name = "circuitlength")
     public float getCircuitlength() {
         return circuitlength;
     }
-
     public void setCircuitlength(float circuitlength) {
         this.circuitlength = circuitlength;
     }
-    @XmlElement(name = "racedistance")
     public float getRacedistance() {
         return racedistance;
     }
-
     public void setRacedistance(float racedistance) {
         this.racedistance = racedistance;
     }
