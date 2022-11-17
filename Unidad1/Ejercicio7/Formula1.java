@@ -1,6 +1,3 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class Formula1 {
     private String track, driver, team;
     private int position, no, startingGrid, laps;

@@ -1,11 +1,10 @@
-import jakarta.xml.bind.annotation.XmlAttribute;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-//@XmlRootElement(name = "race")
-//@XmlType(propOrder = {"round", "country", "city", "circuitname", "gpname", "racedate", "firstgp", "numberoflaps", "circuitlength", "racedistance", "laprecord", "recordowner", "recordyear", "turns", "drszones"})
+import java.time.LocalDate;
+
+@XmlRootElement(name = "race")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Race {
     @XmlAttribute(name = "round")
     private String round;
@@ -17,9 +16,9 @@ public class Race {
     private String circuitname;
     @XmlElement(name = "gpname")
     private String gpname;
-    @XmlElement(name = "racedate", required = true)
-    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
-    private String racedate;
+    @XmlElement(name = "racedate")
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+    private LocalDate racedate;
     @XmlElement(name = "laprecord")
     private String laprecord;
     @XmlElement(name = "recordowner")
@@ -72,10 +71,10 @@ public class Race {
     public void setGpname(String gpname) {
         this.gpname = gpname;
     }
-    public String getRacedate() {
+    public LocalDate getRacedate() {
         return racedate;
     }
-    public void setRacedate(String racedate) {
+    public void setRacedate(LocalDate racedate) {
         this.racedate = racedate;
     }
     public String getLaprecord() {

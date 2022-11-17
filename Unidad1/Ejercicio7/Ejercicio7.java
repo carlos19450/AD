@@ -11,7 +11,7 @@ import static java.lang.Integer.parseInt;
 public class Ejercicio7 {
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
-        int opc, maxJug, maxTeam;
+        int opc;
         Map<String, Double> map = new HashMap<>();
         Map<String, Integer> map2 = new HashMap<>();
         List<Formula1> listaCarrera  = new ArrayList<>();
@@ -22,7 +22,7 @@ public class Ejercicio7 {
             try (Stream<String> contenidoFichero2 = Files.lines(Paths.get("/home/carpui/IdeaProjects/AD/Unidad1/Ejercicio7/formula1_2021season_sprintQualifyingResults.csv"))) {
                 listaRaceResults = contenidoFichero1.map(l -> Arrays.asList(l.split(","))).toList();
                 listaSprint = contenidoFichero2.map(l -> Arrays.asList(l.split(","))).toList();
-                crearOnjetosCarrera(listaRaceResults, listaSprint, listaCarrera, listaSprints);
+                crearObjetosCarrera(listaRaceResults, listaSprint, listaCarrera, listaSprints);
 
                 System.out.println("1. ¿Qué piloto consiguió más puntos en el campeonato y, por lo tanto, fue campeón del mundo?\n" +
                         "2. ¿Qué escudería se alzó con la victoria en el mundial de constructores?\n" +
@@ -79,7 +79,7 @@ public class Ejercicio7 {
             e.printStackTrace();
         }
     }
-    public static void crearOnjetosCarrera(List<List<String>> listaRaceResults, List<List<String>> listaSprint, List<Formula1> listaCarrera, List<Formula1>listaSprints) {
+    public static void crearObjetosCarrera(List<List<String>> listaRaceResults, List<List<String>> listaSprint, List<Formula1> listaCarrera, List<Formula1>listaSprints) {
         Formula1 carrera, sprint;
         List<String> line;
         for (int i = 1; i < listaRaceResults.size(); i++) {
