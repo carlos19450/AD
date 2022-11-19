@@ -92,4 +92,19 @@ public class TipoCarrera {
     public void setPoints(double points) {
         this.points = points;
     }
+
+    @Override
+    public String toString() {
+        return "TipoCarrera{" +
+                "track=" + track +
+                ", driver='" + driver + '\'' +
+                ", team='" + team + '\'' +
+                ", timeRetired='" + timeRetired + '\'' +
+                ", position=" + position +
+                ", no=" + no +
+                ", startingGrid=" + startingGrid +
+                ", laps=" + laps +
+                ", points=" + points +
+                '}';
+    }
 }

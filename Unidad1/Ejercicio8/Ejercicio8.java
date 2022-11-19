@@ -6,9 +6,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.lang.Double.parseDouble;
@@ -23,7 +22,6 @@ public class Ejercicio8 {
         List<List<String>> listaSprint = leerCSV("Unidad1\\Ejercicio8\\formula1_2021season_sprintQualifyingResults.csv");
         Path nombreFichero = Path.of("C:\\Users\\andra\\IdeaProjects\\AD\\Unidad1\\Ejercicio8\\formula1_2021season_calendar.xml");
         JAXBContext context;
-
         try {
             context = JAXBContext.newInstance(Calendar.class);
             Unmarshaller jaxbUnmarshaller  = context.createUnmarshaller();
@@ -33,13 +31,16 @@ public class Ejercicio8 {
             crearListaCarreraSprint(listaSprint, listaCarreraSprint, listaRace);
             listaCarreras.addAll(listaCarreraRaceResult);
             listaCarreras.addAll(listaCarreraSprint);
-            for (TipoCarrera a : listaCarreras) {
-                System.out.println(a);
-            }
+            Map<List<String>, Double> mapConductor = listaCarreras.stream()
+                    .collect(Collectors.groupingBy(p -> Arrays.asList(p.getDriver()), Collectors.summingDouble(TipoCarrera::getPoints)
+                    ));
+
+            List<Conductor> listaConductores = mapConductor.entrySet()
+                    .stream()
+                    .map(c -> new Conductor(c.getKey().get(0), c.getValue())).toList();
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-
     }
     public static void crearListaCarreraRaceResult(List<List<String>> listaRaceResults, List<RaceResults> listaCarreraRaceResult, ArrayList<Race> listaRace) {
         boolean correcto = true;
