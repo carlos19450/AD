@@ -9,7 +9,7 @@
     "chassis": "W12",
     "powerUnit": "Mercedes",
     "firstTeamEntry": 1970,
-    "worldChampionships": 8,
+    "worldChampionships": 8
   },
   {
     "team": "Red Bull",
@@ -21,7 +21,7 @@
     "chassis": "RB16B",
     "powerUnit": "Honda",
     "firstTeamEntry": 1997,
-    "worldChampionships": 4,
+    "worldChampionships": 4
   },
   {
     "team": "Ferrari",
@@ -33,7 +33,7 @@
     "chassis": "SF21",
     "powerUnit": "Ferrari",
     "firstTeamEntry": 1950,
-    "worldChampionships": 16,
+    "worldChampionships": 16
   },
   {
     "team": "McLaren",
@@ -45,7 +45,7 @@
     "chassis": "MCL35M",
     "powerUnit": "Mercedes",
     "firstTeamEntry": 1966,
-    "worldChampionships": 8,
+    "worldChampionships": 8
   },
   {
     "team": "Alpine",
@@ -57,7 +57,7 @@
     "chassis": "A521",
     "powerUnit": "Renault",
     "firstTeamEntry": 1986,
-    "worldChampionships": 2,
+    "worldChampionships": 2
   },
   {
     "team": "AlphaTauri",
@@ -69,7 +69,7 @@
     "chassis": "AT02",
     "powerUnit": "Honda",
     "firstTeamEntry": 1985,
-    "worldChampionships": 0,
+    "worldChampionships": 0
   },
   {
     "team": "Aston Martin",
@@ -81,7 +81,7 @@
     "chassis": "AMR21",
     "powerUnit": "Mercedes",
     "firstTeamEntry": 2018,
-    "worldChampionships": 0,
+    "worldChampionships": 0
   },
   {
     "team": "Williams",
@@ -93,7 +93,7 @@
     "chassis": "FW43B",
     "powerUnit": "Mercedes",
     "firstTeamEntry": 1978,
-    "worldChampionships": 9,
+    "worldChampionships": 9
   },
   {
     "team": "Alfa Romeo",
@@ -105,7 +105,7 @@
     "chassis": "C41",
     "powerUnit": "Ferrari",
     "firstTeamEntry": 1993,
-    "worldChampionships": 0,
+    "worldChampionships": 0
   },
   {
     "team": "Haas",
@@ -117,6 +117,6 @@
     "chassis": "VF-21",
     "powerUnit": "Ferrari",
     "firstTeamEntry": 2016,
-    "worldChampionships": 0,
+    "worldChampionships": 0
   }
 ]

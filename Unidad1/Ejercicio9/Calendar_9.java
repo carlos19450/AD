@@ -9,7 +9,7 @@ import java.util.ArrayList;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Calendar_9 {
     @XmlElement(name = "race")
-    private ArrayList<Race> races = new ArrayList<>();
+    private ArrayList<Race_9> races = new ArrayList<>();
 
     public Calendar_9() {
     }

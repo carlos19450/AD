@@ -8,7 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.lang.Double.parseDouble;
@@ -19,33 +18,31 @@ public class Ejercicio9 {
         List<TipoCarrera_9> listaCarreras  = new ArrayList<>();
         List<RaceResults_9> listaCarreraRaceResult  = new ArrayList<>();
         List<SprintQualifyingResults_9> listaCarreraSprint  = new ArrayList<>();
-        List<Conductor_9> listaConductores   = new ArrayList<>();
-        List<Drivers_9> listaDrivers   = new ArrayList<>();
-        List<Teams_9> listaTeams   = new ArrayList<>();
-        List<List<String>> listaRaceResults = readCSV("Unidad1\\Ejercicio8\\formula1_2021season_raceResults.csv");
-        List<List<String>> listaSprint = readCSV("Unidad1\\Ejercicio8\\formula1_2021season_sprintQualifyingResults.csv");
-        Path nombreFichero = Path.of("C:\\Users\\andra\\IdeaProjects\\AD\\Unidad1\\Ejercicio8\\formula1_2021season_calendar.xml");
+        List<Drivers_9> listaDrivers;
+        List<Teams_9> listaTeams;
+        List<List<String>> listaRaceResults = readCSV("Unidad1\\Ejercicio9\\formula1_2021season_raceResults.csv");
+        List<List<String>> listaSprint = readCSV("Unidad1\\Ejercicio9\\formula1_2021season_sprintQualifyingResults.csv");
+        Path archivo = Path.of("Unidad1\\Ejercicio9\\formula1_2021season_calendar.xml");
         JAXBContext context;
+        Teams_9 equipo = new Teams_9();
+        Drivers_9 driver = new Drivers_9();
         try {
-            context = JAXBContext.newInstance(Calendar.class);
+            context = JAXBContext.newInstance(Calendar_9.class);
             Unmarshaller jaxbUnmarshaller  = context.createUnmarshaller();
-            Calendar_9 cal = (Calendar_9) jaxbUnmarshaller.unmarshal(nombreFichero.toFile());
+            Calendar_9 cal = (Calendar_9) jaxbUnmarshaller.unmarshal(archivo.toFile());
             ArrayList<Race_9> listaRace = cal.getRaces();
-            crearListaCarreraRaceResult(listaRaceResults, listaCarreraRaceResult, listaRace, listaConductores, listaDrivers);
-            crearListaCarreraSprint(listaSprint, listaCarreraSprint, listaRace);
-            listaCarreras.addAll(listaCarreraRaceResult);
-            listaCarreras.addAll(listaCarreraSprint);
-            listaConductores = crearListaConductoresRaceResult(listaCarreras);
             listaDrivers = readJSONDrivers();
             listaTeams = readJSONTeams();
+            crearListaCarreraRaceResult(listaRaceResults, listaCarreraRaceResult, listaRace, listaTeams, listaDrivers, equipo, driver);
+            crearListaCarreraSprint(listaSprint, listaCarreraSprint, listaRace, listaTeams, listaDrivers, equipo, driver);
+            listaCarreras.addAll(listaCarreraRaceResult);
+            listaCarreras.addAll(listaCarreraSprint);
         } catch (JAXBException e) {
             e.printStackTrace();
         }
     }
-    public static void crearListaCarreraRaceResult(List<List<String>> listaRaceResults, List<RaceResults_9> listaCarreraRaceResult, ArrayList<Race_9> listaRace, List<Teams_9> listaTeams, List<Drivers_9> listaDrivers) {
+    public static void crearListaCarreraRaceResult(List<List<String>> listaRaceResults, List<RaceResults_9> listaCarreraRaceResult, ArrayList<Race_9> listaRace, List<Teams_9> listaTeams, List<Drivers_9> listaDrivers, Teams_9 equipo, Drivers_9 driver) {
         boolean correcto;
-        Teams_9 equipo = new Teams_9();
-        Drivers_9 driver = new Drivers_9();
         List<String> line;
         for (int i = 1; i < listaRaceResults.size(); i++) {
             line = listaRaceResults.get(i);
@@ -77,13 +74,13 @@ public class Ejercicio9 {
             correcto = true;
             for (int j = 1; j < listaRace.size() && correcto; j++) {
                 if (listaRace.get(j).getGpname().equalsIgnoreCase(line.get(0))) {
-                    listaCarreraRaceResult.add(new RaceResults_9(listaRace.get(i), parseInt(line.get(1)), parseInt(line.get(2)), driver, equipo, parseInt(line.get(5)), parseInt(line.get(6)), line.get(7), parseDouble(line.get(8)), line.get(9), line.get(10)));
+                    listaCarreraRaceResult.add(new RaceResults_9(listaRace.get(j), parseInt(line.get(1)), parseInt(line.get(2)), driver, equipo, parseInt(line.get(5)), parseInt(line.get(6)), line.get(7), parseDouble(line.get(8)), line.get(9), line.get(10)));
                     correcto = false;
                 }
             }
         }
     }
-    public static void crearListaCarreraSprint(List<List<String>> listaSprint, List<SprintQualifyingResults_9> listaCarreraSprint, ArrayList<Race_9> listaRace) {
+    public static void crearListaCarreraSprint(List<List<String>> listaSprint, List<SprintQualifyingResults_9> listaCarreraSprint, ArrayList<Race_9> listaRace, List<Teams_9> listaTeams, List<Drivers_9> listaDrivers, Teams_9 equipo, Drivers_9 driver) {
         boolean correcto;
         List<String> line;
         for (int i = 1; i < listaSprint.size(); i++) {
@@ -94,23 +91,27 @@ public class Ejercicio9 {
                 line.set(1, "-2");
             }
             correcto = true;
+            for (int j = 0; j < listaDrivers.size() && correcto; j++) {
+                if (listaDrivers.get(j).getDriver().equalsIgnoreCase(line.get(3))) {
+                    driver = listaDrivers.get(j);
+                    correcto = false;
+                }
+            }
+            correcto = true;
+            for (int j = 0; j < listaTeams.size() && correcto; j++) {
+                if (listaTeams.get(j).getTeam().equalsIgnoreCase(line.get(4))) {
+                    equipo = listaTeams.get(j);
+                    correcto = false;
+                }
+            }
+            correcto = true;
             for (int j = 1; j < listaRace.size() && correcto; j++) {
                 if (listaRace.get(j).getGpname().equalsIgnoreCase(line.get(0))) {
-                    listaCarreraSprint.add(new SprintQualifyingResults_9(listaRace.get(i), parseInt(line.get(1)), parseInt(line.get(2)), line.get(3), line.get(4), parseInt(line.get(5)), parseInt(line.get(6)), line.get(7), parseDouble(line.get(8))));
+                    listaCarreraSprint.add(new SprintQualifyingResults_9(listaRace.get(j), parseInt(line.get(1)), parseInt(line.get(2)), driver, equipo, parseInt(line.get(5)), parseInt(line.get(6)), line.get(7), parseDouble(line.get(8))));
                     correcto = false;
                 }
             }
         }
-    }
-
-    public static List<Conductor_9> crearListaConductoresRaceResult(List<TipoCarrera_9> listaCarreras) {
-        Map<List<String>, Double> mapConductor = listaCarreras.stream()
-                .collect(Collectors.groupingBy(p -> Arrays.asList(p.getDriver()), Collectors.summingDouble(TipoCarrera_9::getPoints)
-                ));
-        List<Conductor_9> listaConductores = mapConductor.entrySet()
-                .stream()
-                .map(c -> new Conductor_9(c.getKey().get(0), c.getValue())).toList();
-        return listaConductores;
     }
 
     private static List<List<String>> readCSV(String ruta) {
@@ -118,7 +119,7 @@ public class Ejercicio9 {
         try (Stream<String> contenidoFichero = Files.lines(Paths.get(ruta))) {
             listacarrera = contenidoFichero.map(l -> Arrays.asList(l.split(","))).toList();
         } catch (IOException e) {
-            System.out.println("Error");
+            System.out.println("Error. Archivo CSV no encontrado.");
             e.printStackTrace();
         }
         return listacarrera;
@@ -127,11 +128,11 @@ public class Ejercicio9 {
     public static List<Teams_9> readJSONTeams() {
         List<Teams_9> lista = new ArrayList<>();
         try {
-            String data = new String(Files.readString(Paths.get("Unidad1/Ejercicio09TratamientoJSON/formula1_2021season_teams.json")));
+            String data = new String(Files.readString(Paths.get("Unidad1\\Ejercicio9\\formula1_2021season_teams.json")));
             Gson gson = new Gson();
             lista = Arrays.stream(gson.fromJson(data, Teams_9[].class)).toList();
         } catch (IOException e) {
-            System.err.println("No se ha podido encontrar el archivo JSON de Teams.");
+            System.err.println("Error. Archivo JSON no encontrado.");
         }
         return lista;
     }
@@ -139,13 +140,12 @@ public class Ejercicio9 {
     public static List<Drivers_9> readJSONDrivers() {
         List<Drivers_9> lista = new ArrayList<>();
         try {
-            String data = new String(Files.readString(Paths.get("Unidad1/Ejercicio09TratamientoJSON/formula1_2021season_drivers.json")));
+            String data = new String(Files.readString(Paths.get("Unidad1\\Ejercicio9\\formula1_2021season_drivers.json")));
             Gson gson = new Gson();
             lista = Arrays.stream(gson.fromJson(data, Drivers_9[].class)).toList();
         } catch (IOException e) {
-            System.err.println("No se ha podido encontrar el archivo JSON de Drivers.");
+            System.err.println("Error. Archivo JSON no encontrado.");
         }
-
         return lista;
     }
 }

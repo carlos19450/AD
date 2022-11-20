@@ -18,8 +18,8 @@ public class Ejercicio7 {
         List<Formula1> listaSprints  = new ArrayList<>();
         List<List<String>> listaRaceResults;
         List<List<String>> listaSprint;
-        try (Stream<String> contenidoFichero1 = Files.lines(Paths.get("C:\\Users\\carlo\\IdeaProjects\\AD\\Unidad1\\Ejercicio7\\formula1_2021season_raceResults.csv"))) {
-            try (Stream<String> contenidoFichero2 = Files.lines(Paths.get("C:\\Users\\carlo\\IdeaProjects\\AD\\Unidad1\\Ejercicio7\\formula1_2021season_sprintQualifyingResults.csv"))) {
+        try (Stream<String> contenidoFichero1 = Files.lines(Paths.get("Unidad1\\Ejercicio7\\formula1_2021season_raceResults.csv"))) {
+            try (Stream<String> contenidoFichero2 = Files.lines(Paths.get("Unidad1\\Ejercicio7\\formula1_2021season_sprintQualifyingResults.csv"))) {
                 listaRaceResults = contenidoFichero1.map(l -> Arrays.asList(l.split(","))).toList();
                 listaSprint = contenidoFichero2.map(l -> Arrays.asList(l.split(","))).toList();
                 crearObjetosCarrera(listaRaceResults, listaSprint, listaCarrera, listaSprints);
