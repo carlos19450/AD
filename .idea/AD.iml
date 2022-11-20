@@ -12,10 +12,12 @@
       <sourceFolder url="file://$MODULE_DIR$/Unidad1/Ejercicio7" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Unidad1/Ejercicio8" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Unidad1/Ejercicio8_Prueba" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Unidad1/Ejercicio9" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jakarta.xml.bind.api" level="project" />
     <orderEntry type="library" name="sun.xml.bind.jaxb.impl" level="project" />
+    <orderEntry type="library" name="google.code.gson" level="project" />
   </component>
 </module>

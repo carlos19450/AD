@@ -18,8 +18,9 @@ public class Ejercicio8 {
         List<TipoCarrera> listaCarreras  = new ArrayList<>();
         List<RaceResults> listaCarreraRaceResult  = new ArrayList<>();
         List<SprintQualifyingResults> listaCarreraSprint  = new ArrayList<>();
-        List<List<String>> listaRaceResults = leerCSV("Unidad1\\Ejercicio8\\formula1_2021season_raceResults.csv");
-        List<List<String>> listaSprint = leerCSV("Unidad1\\Ejercicio8\\formula1_2021season_sprintQualifyingResults.csv");
+        List<Conductor> listaConductores   = new ArrayList<>();
+        List<List<String>> listaRaceResults = readCSV("Unidad1\\Ejercicio8\\formula1_2021season_raceResults.csv");
+        List<List<String>> listaSprint = readCSV("Unidad1\\Ejercicio8\\formula1_2021season_sprintQualifyingResults.csv");
         Path nombreFichero = Path.of("C:\\Users\\andra\\IdeaProjects\\AD\\Unidad1\\Ejercicio8\\formula1_2021season_calendar.xml");
         JAXBContext context;
         try {
@@ -31,19 +32,13 @@ public class Ejercicio8 {
             crearListaCarreraSprint(listaSprint, listaCarreraSprint, listaRace);
             listaCarreras.addAll(listaCarreraRaceResult);
             listaCarreras.addAll(listaCarreraSprint);
-            Map<List<String>, Double> mapConductor = listaCarreras.stream()
-                    .collect(Collectors.groupingBy(p -> Arrays.asList(p.getDriver()), Collectors.summingDouble(TipoCarrera::getPoints)
-                    ));
-
-            List<Conductor> listaConductores = mapConductor.entrySet()
-                    .stream()
-                    .map(c -> new Conductor(c.getKey().get(0), c.getValue())).toList();
+            listaConductores = crearListaConductoresRaceResult(listaCarreras);
         } catch (JAXBException e) {
             e.printStackTrace();
         }
     }
     public static void crearListaCarreraRaceResult(List<List<String>> listaRaceResults, List<RaceResults> listaCarreraRaceResult, ArrayList<Race> listaRace) {
-        boolean correcto = true;
+        boolean correcto;
         List<String> line;
         for (int i = 1; i < listaRaceResults.size(); i++) {
             line = listaRaceResults.get(i);
@@ -58,6 +53,7 @@ public class Ejercicio8 {
             if (line.get(7).equals("DNF")) {
                 line.set(7, "-4");
             }
+            correcto = true;
             for (int j = 1; j < listaRace.size() && correcto; j++) {
                 if (listaRace.get(j).getGpname().equalsIgnoreCase(line.get(0))) {
                     listaCarreraRaceResult.add(new RaceResults(listaRace.get(i), parseInt(line.get(1)), parseInt(line.get(2)), line.get(3), line.get(4), parseInt(line.get(5)), parseInt(line.get(6)), line.get(7), parseDouble(line.get(8)), line.get(9), line.get(10)));
@@ -67,7 +63,7 @@ public class Ejercicio8 {
         }
     }
     public static void crearListaCarreraSprint(List<List<String>> listaSprint, List<SprintQualifyingResults> listaCarreraSprint, ArrayList<Race> listaRace) {
-        boolean correcto = true;
+        boolean correcto;
         List<String> line;
         for (int i = 1; i < listaSprint.size(); i++) {
             line = listaSprint.get(i);
@@ -76,6 +72,7 @@ public class Ejercicio8 {
             } else if (line.get(1).equals("DQ")) {
                 line.set(1, "-2");
             }
+            correcto = true;
             for (int j = 1; j < listaRace.size() && correcto; j++) {
                 if (listaRace.get(j).getGpname().equalsIgnoreCase(line.get(0))) {
                     listaCarreraSprint.add(new SprintQualifyingResults(listaRace.get(i), parseInt(line.get(1)), parseInt(line.get(2)), line.get(3), line.get(4), parseInt(line.get(5)), parseInt(line.get(6)), line.get(7), parseDouble(line.get(8))));
@@ -84,10 +81,20 @@ public class Ejercicio8 {
             }
         }
     }
-    private static List<List<String>> leerCSV(String ruta) {
+    public static List<Conductor> crearListaConductoresRaceResult(List<TipoCarrera> listaCarreras) {
+        Map<List<String>, Double> mapConductor = listaCarreras.stream()
+                .collect(Collectors.groupingBy(p -> Arrays.asList(p.getDriver()), Collectors.summingDouble(TipoCarrera::getPoints)
+                ));
+        List<Conductor> listaConductores = mapConductor.entrySet()
+                .stream()
+                .map(c -> new Conductor(c.getKey().get(0), c.getValue())).toList();
+        return listaConductores;
+    }
+
+    private static List<List<String>> readCSV(String ruta) {
         List<List<String>> listacarrera = new ArrayList<>();
         try (Stream<String> contenidoFichero = Files.lines(Paths.get(ruta))) {
-                listacarrera = contenidoFichero.map(l -> Arrays.asList(l.split(","))).toList();
+            listacarrera = contenidoFichero.map(l -> Arrays.asList(l.split(","))).toList();
         } catch (IOException e) {
             System.out.println("Error");
             e.printStackTrace();
