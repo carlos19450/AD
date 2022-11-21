@@ -1,4 +1,5 @@
 //import com.google.gson.Gson;
+import com.google.gson.Gson;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
@@ -128,9 +129,9 @@ public class Ejercicio9 {
     public static List<Teams_9> readJSONTeams() {
         List<Teams_9> lista = new ArrayList<>();
         try {
-            String data = new String(Files.readString(Paths.get("Unidad1\\Ejercicio9\\formula1_2021season_teams.json")));
-            //Gson gson = new Gson();
-            //lista = Arrays.stream(gson.fromJson(data, Teams_9[].class)).toList();
+            String data = new String(Files.readString(Paths.get("Unidad1/Ejercicio9/formula1_2021season_teams.json")));
+            Gson gson = new Gson();
+            lista = Arrays.stream(gson.fromJson(data, Teams_9[].class)).toList();
         } catch (IOException e) {
             System.err.println("Error. Archivo JSON no encontrado.");
         }
@@ -140,9 +141,9 @@ public class Ejercicio9 {
     public static List<Drivers_9> readJSONDrivers() {
         List<Drivers_9> lista = new ArrayList<>();
         try {
-            String data = new String(Files.readString(Paths.get("Unidad1\\Ejercicio9\\formula1_2021season_drivers.json")));
-            //Gson gson = new Gson();
-            //lista = Arrays.stream(gson.fromJson(data, Drivers_9[].class)).toList();
+            String data = new String(Files.readString(Paths.get("Unidad1/Ejercicio9/formula1_2021season_drivers.json")));
+            Gson gson = new Gson();
+            lista = Arrays.stream(gson.fromJson(data, Drivers_9[].class)).toList();
         } catch (IOException e) {
             System.err.println("Error. Archivo JSON no encontrado.");
         }

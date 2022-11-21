@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 @XmlRootElement(name = "driver")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Piloto {
+public class Piloto extends Resultado{
     @XmlElement(name = "name")
     private String nombre;
     @XmlAttribute(name = "number")
