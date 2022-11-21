@@ -19,9 +19,9 @@ public class Ejercicio8 {
         List<RaceResults> listaCarreraRaceResult  = new ArrayList<>();
         List<SprintQualifyingResults> listaCarreraSprint  = new ArrayList<>();
         List<Conductor> listaConductores   = new ArrayList<>();
-        List<List<String>> listaRaceResults = readCSV("Unidad1\\Ejercicio8\\formula1_2021season_raceResults.csv");
-        List<List<String>> listaSprint = readCSV("Unidad1\\Ejercicio8\\formula1_2021season_sprintQualifyingResults.csv");
-        Path nombreFichero = Path.of("Unidad1\\Ejercicio8\\formula1_2021season_calendar.xml");
+        List<List<String>> listaRaceResults = readCSV("Unidad1/Ejercicio8/formula1_2021season_raceResults.csv");
+        List<List<String>> listaSprint = readCSV("Unidad1/Ejercicio8/formula1_2021season_sprintQualifyingResults.csv");
+        Path nombreFichero = Path.of("Unidad1/Ejercicio8/formula1_2021season_calendar.xml");
         JAXBContext context;
         try {
             context = JAXBContext.newInstance(Calendar.class);
