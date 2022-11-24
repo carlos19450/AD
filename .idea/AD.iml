@@ -17,11 +17,13 @@
       <sourceFolder url="file://$MODULE_DIR$/Unidad1/Examen/Ejercicio2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Unidad1/Examen/data" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Unidad1/Examen/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Unidad2/Ejercicio10/Main" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jakarta.xml.bind.api" level="project" />
     <orderEntry type="library" name="sun.xml.bind.jaxb.impl" level="project" />
     <orderEntry type="library" name="google.code.gson" level="project" />
+    <orderEntry type="library" name="xerial.sqlite.jdbc" level="project" />
   </component>
 </module>

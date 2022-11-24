@@ -1,4 +1,4 @@
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
@@ -57,8 +57,8 @@ public class Mundial {
         List<Resultado> listaRsultado = new ArrayList<>();
         try {
             String data = new String(Files.readString(Paths.get("Unidad1/Examen/data/resultados.json")));
-            Gson gson = new Gson();
-            listaRsultado = Arrays.stream(gson.fromJson(data, Resultado[].class)).toList();
+            //Gson gson = new Gson();
+            //listaRsultado = Arrays.stream(gson.fromJson(data, Resultado[].class)).toList();
         } catch (IOException e) {
             System.err.println("Error. Archivo JSON no encontrado.");
             e.printStackTrace();
