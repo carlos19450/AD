@@ -15,9 +15,9 @@ public class Formula1Ej10_Anyadir_Tabla {
             conexion = DriverManager.getConnection("jdbc:sqlite:" + rutaBaseDatos.toString());
             String sentenciaSQL =
                     "CREATE TABLE Teams(" +
-                            "Constructor text primary key," +
-                            "Chassis text," +
-                            "PowerUnit text" +
+                            "Constructor text primary key not null," +
+                            "Chassis text not null," +
+                            "PowerUnit text not null" +
                             ");";
             sentencia = conexion.prepareStatement(sentenciaSQL);
             ResultSet resultados = sentencia.executeQuery();
