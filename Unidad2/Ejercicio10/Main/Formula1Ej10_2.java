@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class Formula1Ej10 {
+public class Formula1Ej10_2 {
     public static void main(String[] args) {
         Connection conexion = null;
         PreparedStatement sentencia = null;
@@ -13,16 +13,16 @@ public class Formula1Ej10 {
             Path rutaBaseDatos = Path.of("/home/carpui/IdeaProjects/AD/Unidad2/Ejercicio10/db/formula1.db");
             conexion = DriverManager.getConnection("jdbc:sqlite:" + rutaBaseDatos.toString());
             String sentenciaSQL =
-                    "SELECT Results.Points, Drivers.Name " +
-                    "FROM Drivers " +
-                            "INNER JOIN Results " +
-                            "ON Drivers.DriverID = Results.DriverID ";
+                    "SELECT Name " +
+                            "FROM Drivers " +
+                            "WHERE strftime(\"%Y\", date('now')) - strftime(\"%Y\", DateOfBirth) > 30 " +
+                            "ORDER BY DateOfBirth DESC;";
             sentencia = conexion.prepareStatement(sentenciaSQL);
             ResultSet resultados = sentencia.executeQuery();
-            System.out.println("Puntos\t\t\tNombre");
+            System.out.println("Nombre");
             System.out.println("----------------------------------------------");
             while (resultados.next()) {
-                System.out.println(resultados.getInt("Points") + "\t" + resultados.getString("Name"));
+                System.out.println(resultados.getString("Name"));
             }
             resultados.close();
             conexion.close();
