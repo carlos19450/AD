@@ -2,6 +2,7 @@ package dao.sql;
 
 import dao.DAOManager;
 import dao.EscuderiaDAO;
+import dao.PilotoDAO;
 
 import java.nio.file.Path;
 import java.sql.Connection;
@@ -9,13 +10,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class SQLiteDAOManagerImpl implements DAOManager {
-    final String RUTABASE = Path.of("/home/carpui/IdeaProjects/AD/Unidad2/EjemploDAO/db/formula1.db").toString();
+    final String RUTABASE = Path.of("C:\\Users\\carlo\\IdeaProjects\\AD\\Unidad2\\EjemploDAO\\db\\formula1.db").toString();
 
     private Connection conexion;
 
     private EscuderiaDAO escuderias = null;
-    // private PilotoDAO pilotos = null;
-    // ...
+    private PilotoDAO pilotos = null;
 
     public SQLiteDAOManagerImpl() {
         try {
@@ -41,5 +41,12 @@ public class SQLiteDAOManagerImpl implements DAOManager {
             escuderias = new dao.sql.SQLiteEscuderiaDAOImpl(conexion);
         }
         return escuderias;
+    }
+    @Override
+    public PilotoDAO getPilotoDAO() {
+        if (pilotos == null) {
+            pilotos = new dao.sql.SQLitePilotoDAOImpl(conexion, escuderias.findAll());
+        }
+        return pilotos;
     }
 }
