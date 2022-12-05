@@ -2,7 +2,6 @@ package dao.sql;
 
 import dao.EscuderiaDAO;
 import models.Escuderia;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

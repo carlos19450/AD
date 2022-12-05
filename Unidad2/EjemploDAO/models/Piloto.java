@@ -24,11 +24,9 @@ public class Piloto {
     public int getNumero() { return numero;}
     public Escuderia getEquipo() { return equipo; }
     public LocalDate getFechaNacimiento() { return fechaNacimiento; }
-
     public String getFechaNacimientoString() {
         return fechaNacimiento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
-
     // Setters
     public void setNombre(String nombre) { this.nombre = nombre; }
     public void setNumero(int numero) { this.numero = numero; }
