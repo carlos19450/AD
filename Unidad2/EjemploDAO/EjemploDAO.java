@@ -10,7 +10,7 @@ public class EjemploDAO {
 
             SQLiteDAOManagerImpl mundial = new SQLiteDAOManagerImpl();
             // Teams
-            /*System.out.println("\nMostrar todas las escuderias");
+            System.out.println("\nMostrar todas las escuderias");
             System.out.println("-------------------------------");
             mundial.getEscuderiaDAO().findAll().forEach(System.out::println);
 
@@ -34,10 +34,10 @@ public class EjemploDAO {
             System.out.println("\nBorrar una escudería");
             System.out.println("-------------------------------");
             mundial.getEscuderiaDAO().deleteById("Seat");
-            mundial.getEscuderiaDAO().findAll().forEach(System.out::println);*/
+            mundial.getEscuderiaDAO().findAll().forEach(System.out::println);
 
             // Drivers
-            /*System.out.println("\nMostrar todos Pilotos");
+            System.out.println("\nMostrar todos Pilotos");
             System.out.println("-------------------------------");
             mundial.getPilotoDAO().findAll().forEach(System.out::println);
 
@@ -47,23 +47,23 @@ public class EjemploDAO {
 
             System.out.println("\nInsertar un Piloto");
             System.out.println("-------------------------------");
-            Piloto piloto = new Piloto("Carlos Exposito", 100, new Escuderia("Renault", "Clio-19", "Clio M10 064"), LocalDate.parse("1999-8-15 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            Piloto piloto = new Piloto("Carlos Exposito", 100, new Escuderia("Renault", "Clio-19", "Clio M10 064"), LocalDate.parse("1999-8-15", DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             System.out.println(piloto);
             mundial.getPilotoDAO().save(piloto);
             mundial.getPilotoDAO().findAll().forEach(System.out::println);
 
             System.out.println("\nActualizar un Piloto");
             System.out.println("-------------------------------");
-            pil.setNombre("Federico Garcia");
-            pil.setEquipo(new Escuderia("Paco", "Paco-2930", "Paco 3423234"));
-            pil.setFechaNacimiento(LocalDate.now());
-            mundial.getPilotoDAO().update(pil);
+            piloto.setNombre("Federico Garcia");
+            piloto.setEquipo(new Escuderia("Paco", "Paco-2930", "Paco 3423234"));
+            piloto.setFechaNacimiento(LocalDate.now());
+            mundial.getPilotoDAO().update(piloto);
             mundial.getPilotoDAO().findAll().forEach(System.out::println);
 
             System.out.println("\nBorrar un piloto");
             System.out.println("-------------------------------");
             mundial.getPilotoDAO().deleteById(21);
-            mundial.getPilotoDAO().findAll().forEach(System.out::println);*/
+            mundial.getPilotoDAO().findAll().forEach(System.out::println);
 
             // Tracks
             System.out.println("\nMostrar todas los circuitos");
@@ -76,7 +76,7 @@ public class EjemploDAO {
 
             System.out.println("\nInsertar un circuito");
             System.out.println("-------------------------------");
-            Circuito circuito = new Circuito(22, "España", LocalDate.parse("2020-12-07 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            Circuito circuito = new Circuito(22, "España", LocalDate.parse("2020-12-07", DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             mundial.getCircuitoDAO().save(circuito);
             mundial.getCircuitoDAO().findAll().forEach(System.out::println);
 

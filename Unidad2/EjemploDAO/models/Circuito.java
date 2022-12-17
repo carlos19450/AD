@@ -41,7 +41,7 @@ public class Circuito {
         return "Circuito{" +
                 "numero=" + numero + '\'' +
                 ", pais=" + pais + '\'' +
-                ", fecha=" + fecha + '\'' +
+                ", fecha=" + fecha.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) +
                 '}';
     }
 }

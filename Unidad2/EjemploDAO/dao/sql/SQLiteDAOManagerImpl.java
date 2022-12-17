@@ -11,7 +11,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class SQLiteDAOManagerImpl implements DAOManager {
-    final String RUTABASE = Path.of("/home/carpui/IdeaProjects/AD/Unidad2/EjemploDAO/db/formula1.db").toString();
+    final String RUTABASE = Path.of("C:\\Users\\carlo\\IdeaProjects\\AD\\Unidad2\\EjemploDAO\\db\\formula1.db").toString();
 
     private Connection conexion;
 
