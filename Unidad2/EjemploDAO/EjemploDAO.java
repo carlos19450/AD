@@ -36,7 +36,7 @@ public class EjemploDAO {
             mundial.getEscuderiaDAO().deleteById("Seat");
             mundial.getEscuderiaDAO().findAll().forEach(System.out::println);
 
-            // Drivers
+            /*// Drivers
             System.out.println("\nMostrar todos Pilotos");
             System.out.println("-------------------------------");
             mundial.getPilotoDAO().findAll().forEach(System.out::println);
@@ -91,6 +91,6 @@ public class EjemploDAO {
             System.out.println("-------------------------------");
             mundial.getCircuitoDAO().deleteById(22);
             mundial.getCircuitoDAO().findAll().forEach(System.out::println);
-            mundial.close();
+            mundial.close();*/
     }
 }

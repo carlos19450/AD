@@ -19,6 +19,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Unidad1/Examen/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Unidad2/Ejercicio10/Main" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Unidad2/EjemploDAO" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Unidad2/Examen" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
