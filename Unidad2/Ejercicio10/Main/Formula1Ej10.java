@@ -59,9 +59,10 @@ public class Formula1Ej10 {
             String sentenciaClasificacionPilotosAnosIntroducidos = """
                     SELECT Name, strftime("%Y", date('now')) - strftime("%Y", DateOfBirth) AS year
                             FROM Drivers
-                            WHERE year > + edad +
+                            WHERE year > ?
                             ORDER BY year DESC""";
             sentencia = conexion.prepareStatement(sentenciaClasificacionPilotosAnosIntroducidos);
+            sentencia.setInt(1, edad);
             ResultSet resultadosClasificacionPilotosAnosIntroducidos = sentencia.executeQuery();
             System.out.println("Nombre\t\t\tAños");
             System.out.println("---------------------");
